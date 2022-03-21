@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTreeModule } from '@angular/material/tree';
 
 import { HeaderModule } from './header/header.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -35,7 +36,8 @@ import { LayoutComponent } from './layout/layout.component';
     MatMenuModule,
     MatSelectModule,
     FormsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTreeModule,
   ],
   exports: [
     HeaderModule,

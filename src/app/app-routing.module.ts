@@ -12,6 +12,12 @@ const routes: Routes = [
     component: DashboardPageComponent
   },
   {
+    path: 'persona',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/persona/persona.module').then(m => m.PersonaModule)
+  },
+  {
     path: 'typography',
     pathMatch: 'full',
     canActivate: [AuthGuard],

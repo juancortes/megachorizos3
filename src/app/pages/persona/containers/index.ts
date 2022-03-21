@@ -1,0 +1,1 @@
+export * from './persona-page/persona-page.component';
