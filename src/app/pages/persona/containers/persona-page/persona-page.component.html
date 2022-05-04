@@ -1,1 +1,9 @@
-<p>persona-page works!</p>
+<app-layout>
+    <mat-toolbar class="page-header" role="heading">
+        <h1>Personas</h1>
+    </mat-toolbar>
+    <div class="tables-wrapper">
+        <app-persona [personaTableData]="personaTableData$ | async"></app-persona>
+    </div>
+  <app-footer></app-footer>
+</app-layout>

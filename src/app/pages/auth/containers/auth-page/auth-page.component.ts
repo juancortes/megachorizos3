@@ -40,7 +40,6 @@ export class AuthPageComponent implements OnInit {
 
   public sendLoginForm(): void {
     this.register = this.login;
-    console.log(this.register['form'].value.email)
     
     this.service.login(this.register['form'].value.email,this.register['form'].value.password)
       .subscribe(
@@ -68,7 +67,6 @@ export class AuthPageComponent implements OnInit {
 
   public sendSignForm(): void {
     this.register = this.registro;
-    console.log(this.register['form'])
     this.service.sign(this.register['form'].value.name,this.register['form'].value.email,this.register['form'].value.password,this.register['form'].value.password_confirmation)
       .subscribe(
         data => {

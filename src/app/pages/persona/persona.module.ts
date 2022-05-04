@@ -12,8 +12,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PersonaPageComponent } from './containers/persona-page/persona-page.component';
-
-
+import { PersonaRoutingModule } from './persona-routing.module';
+import { PersonaService } from './services';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
@@ -31,7 +33,13 @@ import { PersonaPageComponent } from './containers/persona-page/persona-page.com
     MatToolbarModule,
     MatPaginatorModule,
     MatFormFieldModule,
-    SharedModule
+    SharedModule,
+    PersonaRoutingModule,
+    MatDialogModule,
+    MatAutocompleteModule
+  ],
+  providers: [
+    PersonaService
   ]
 })
 export class PersonaModule { }

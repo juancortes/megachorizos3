@@ -1,0 +1,43 @@
+<!-- dialog-box.component.html -->
+<h3 mat-dialog-title> <strong>{{action}}</strong></h3>
+<div mat-dialog-content>
+  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+    <input placeholder="{{action}} Nombres" matInput [(ngModel)]="local_data.nombres">
+  </mat-form-field>
+  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+    <input placeholder="{{action}} Cédula" matInput [(ngModel)]="local_data.cedula">
+  </mat-form-field>
+  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+    <input placeholder="{{action}} Correo" matInput [(ngModel)]="local_data.correo">
+  </mat-form-field>
+  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+    <input placeholder="{{action}} Userame" matInput [(ngModel)]="local_data.username">
+  </mat-form-field>
+  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+    <input placeholder="{{action}} Clave" type="password" matInput [(ngModel)]="local_data.clave">
+  </mat-form-field>
+  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate" class="example-full-width" appearance="fill">
+    <input placeholder="{{action}} Rol"  matInput [(ngModel)]="local_data.rol">
+    <input type="text"
+           placeholder="Pick one"
+           aria-label="Number"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+    <input placeholder="{{action}} Estado" matInput [(ngModel)]="local_data.estado">
+  </mat-form-field>
+  <ng-template #elseTemplate>
+    Seguero que quiere eliminar a <b>{{local_data.nombres}}</b>?
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>

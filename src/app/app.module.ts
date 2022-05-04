@@ -14,11 +14,17 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthModule } from './pages/auth/auth.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { HttpClientModule } from '@angular/common/http';
+import { DialogBoxComponent } from './pages/persona/components/dialog-box/dialog-box.component';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,12 @@ import { HttpClientModule } from '@angular/common/http';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

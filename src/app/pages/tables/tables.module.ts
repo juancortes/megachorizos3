@@ -9,6 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { TablesPageComponent } from './containers';
 import { TablesRoutingModule } from './tables-routing.module';
@@ -34,6 +35,7 @@ import { TablesService } from './services';
     MatToolbarModule,
     MatPaginatorModule,
     MatFormFieldModule,
+    MatDialogModule,
     SharedModule
   ],
   providers: [

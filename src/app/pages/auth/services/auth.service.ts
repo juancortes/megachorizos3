@@ -3,8 +3,8 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { User } from '../models';
+import { routes } from '../../../consts';
 
-const AUTH_API = 'http://localhost:8000/api/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   public login(email: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + 'login', {
+    return this.http.post(routes.AUTH_API + 'login', {
       email,
       password
     }, httpOptions);
@@ -29,7 +29,7 @@ export class AuthService {
       password,
       password_confirmation
     });
-    return this.http.post(AUTH_API + 'register', body, httpOptions);
+    return this.http.post(routes.AUTH_API + 'register', body, httpOptions);
   }
 
   public signOut(): void {
