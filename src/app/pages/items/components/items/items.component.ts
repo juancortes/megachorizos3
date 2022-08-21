@@ -2,57 +2,49 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/cor
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Persona } from '../../models/persona';
+import { Items } from '../../models/items';
 import { Observable } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { HttpClient } from '@angular/common/http';
-import { PersonaService } from '../../services';
+import { ItemsService } from '../../services';
 import { AuthService } from 'src/app/pages/auth/services';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogBoxComponent } from 'src/app/pages/persona/components/dialog-box/dialog-box.component';
+import { DialogBoxItemsComponent } from 'src/app/pages/items/components/dialog-box-items/dialog-box-items.component';
+import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-persona',
-  templateUrl: './persona.component.html',
-  styleUrls: ['./persona.component.scss']
+  selector: 'app-items',
+  templateUrl: './items.component.html',
+  styleUrls: ['./items.component.scss']
 })
 
-export class PersonaComponent implements OnInit, AfterViewInit {
-  @Input() personaTableData: Persona[];
-  public displayedColumns: string[] = ['id', 'nombres', 'cedula', 'correo', 'estado','operaciones'];
-  dataSource: MatTableDataSource<Persona> = new MatTableDataSource()
- // public dataSource: MatTableDataSource<Persona>;
-  public selection = new SelectionModel<Persona>(true, []);
+export class ItemsComponent implements OnInit, AfterViewInit {
+  
+  @Input() itemsTableData: Items[];
+  public displayedColumns: string[] = ['id', 'name', 'created_at','operaciones'];
+  dataSource: MatTableDataSource<Items> = new MatTableDataSource()
+ // public dataSource: MatTableDataSource<Items>;
+  public selection = new SelectionModel<Items>(true, []);
   @ViewChild(MatSort) sort: MatSort;
 
   public isShowFilterInput = false;
+  public isSuccessful = false;
+  public isSignUpFailed = false;
+  public errorMessage = '';
 
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   //public personaTableData$: Observable<Persona[]>
   
   constructor(private userService: AuthService,
-              private _personaservice: PersonaService,
+              private _itemsservice: ItemsService,
               private http: HttpClient,
               private router: Router,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this._personaservice.loadPersonaTableData().subscribe({
-      next: data =>{
-        console.log("data")
-        console.log(data["status"])
-        if(data["status"] == "Token is Expired")
-        {
-          this.userService.signOut();
-          this.router.navigate(['/login']);
-        }
-        
-        this.dataSource = new MatTableDataSource(data["personal"]);
-        this.dataSource.paginator = this.paginator;
-      }
-    });
+    this.cargarItems();
   }
 
   ngAfterViewInit(): void {
@@ -93,15 +85,17 @@ export class PersonaComponent implements OnInit, AfterViewInit {
 
   public openDialog(action,obj) {
     obj.action = action;
-    const dialogRef = this.dialog.open(DialogBoxComponent, {
+    const dialogRef = this.dialog.open(DialogBoxItemsComponent, {
       width: '650px',
       data:obj
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      console.log("event");
+      console.log(result.event);
+      console.log(result.data);
       if(result.event == 'Adicionar'){
-        this.addRowData(result.data);
+        this.insertItem(result.data);
       }else if(result.event == 'Editar'){
         this.updateRowData(result.data);
       }else if(result.event == 'Eliminar'){
@@ -111,40 +105,77 @@ export class PersonaComponent implements OnInit, AfterViewInit {
     
   }
 
-  addRowData(row_obj:any){
-    console.log("row_obj");
-    console.log(row_obj);
-    /*var d = new Date();
-    this.dataSource.push({
-      id:d.getTime(),
-      name:row_obj.name
+  public cargarItems()
+  {
+    this._itemsservice.loadItemsTableData().subscribe({
+      next: data =>{
+        console.log("data")
+        console.log(data["status"])
+        if(data["status"] == "Token is Expired")
+        {
+          this.userService.signOut();
+          this.router.navigate(['/login']);
+        }
+        
+        this.dataSource = new MatTableDataSource(data["items"]);
+        this.dataSource.paginator = this.paginator;
+      }
     });
-    this.table.renderRows();*/
-    
+  }
+
+  insertItem(row_obj:any){
+    this._itemsservice.insertItem(row_obj.name)
+      .subscribe(
+        data => {
+          if(data["status"] == "ok")
+          {
+            this.ngOnInit();
+          }
+          else if(data["status"] == "error")
+          {
+            this.openDialog("Error",{})
+          }
+          this.isSuccessful = true;
+          this.isSignUpFailed = true;
+        },
+        err => {
+          this.errorMessage = err.error.message;
+          this.isSignUpFailed = true;
+        }
+      );
   }
   updateRowData(row_obj){
     console.log("row_obj");
     console.log(row_obj);
-    this._personaservice.updatePersona(row_obj).subscribe({
+    this._itemsservice.updateItems  (row_obj).subscribe({
       next: data =>{
         if(data["status"] == "ok")
         {
           this.ngOnInit();
         }
+        else if(data["status"] == "error")
+        {
+          this.openDialog("Error",{})
+        }
         
       }
     });
-    /*this.dataSource = this.dataSource.filter((value,key)=>{
-      if(value.id == row_obj.id){
-        value.name = row_obj.name;
-      }
-      return true;
-    });*/
   }
   deleteRowData(row_obj){
-    /*this.dataSource = this.dataSource.filter((value,key)=>{
-      return value.id != row_obj.id;
-    });*/
+    console.log(row_obj);
+    this._itemsservice.deleteItem  (row_obj).subscribe({
+      next: data =>{
+        if(data["status"] == "ok")
+        {
+          this.ngOnInit();
+        }
+        else if(data["status"] == "error")
+        {
+          this.openDialog("Error",{})
+        }
+        
+      }
+    });
   }
 
 

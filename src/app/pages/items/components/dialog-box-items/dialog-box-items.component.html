@@ -1,0 +1,17 @@
+<!-- dialog-box.component.html -->
+<h3 mat-dialog-title> <strong>{{action}}</strong></h3>
+<div mat-dialog-content>
+  <mat-form-field *ngIf="action === 'Adicionar' || action === 'Editar'; else  elseTemplate">
+    <input placeholder="{{action}} Role" matInput [(ngModel)]="local_data.name">
+</mat-form-field>
+  <ng-template #elseTemplate >
+    <ng-container *ngIf="action === 'Eliminar'; else elseTemplateError">Seguro que quiere eliminar a <b>{{local_data.name}}</b>?</ng-container>
+  </ng-template>
+  <ng-template #elseTemplateError>
+    El rol ingresado ya existe <b>{{local_data.name}}</b>
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()" *ngIf="action != 'Error';">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>

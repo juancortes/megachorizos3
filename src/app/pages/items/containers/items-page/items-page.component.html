@@ -1,0 +1,9 @@
+<app-layout>
+    <mat-toolbar class="page-header" role="heading">
+        <h1>Items</h1>
+    </mat-toolbar>
+    <div class="tables-wrapper">
+        <app-items [itemsTableData]="itemsTableData$ | async"></app-items>
+    </div>
+  <app-footer></app-footer>
+</app-layout>

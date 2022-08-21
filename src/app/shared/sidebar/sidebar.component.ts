@@ -19,7 +19,7 @@ const TREE_DATA: FoodNode[] = [
     url: '#',
     children: [
       {name: 'Persona', url:'#' + routes.PERSONA}, 
-      {name: 'Items', url: '#'}, 
+      {name: 'Items', url: '#' + routes.ITEM}, 
       {name: 'Asignaciones', url: '#'},
       {name: 'Jerarquias', url: '#'}],
   },

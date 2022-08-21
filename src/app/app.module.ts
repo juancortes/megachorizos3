@@ -15,6 +15,7 @@ import { AuthModule } from './pages/auth/auth.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogBoxComponent } from './pages/persona/components/dialog-box/dialog-box.component';
+import { DialogBoxItemsComponent } from './pages/items/components/dialog-box-items/dialog-box-items.component';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -24,7 +25,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
   declarations: [
     AppComponent,
     NotFoundComponent,
-    DialogBoxComponent
+    DialogBoxComponent,
+    DialogBoxItemsComponent
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,7 @@ export class LoginFormComponent implements OnInit {
 
   public login(): void {
     if (this.form.valid) {
+      console.log("si entro");
       this.sendLoginForm.emit();
     }
   }

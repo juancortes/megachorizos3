@@ -23,6 +23,7 @@ export class AuthService {
   }
 
   public sign(name: string, email: string, password: string, password_confirmation: string): Observable<any> {
+    console.log("si");
     const body=JSON.stringify({
       name,
       email,

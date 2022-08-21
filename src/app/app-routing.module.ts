@@ -18,6 +18,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/persona/persona.module').then(m => m.PersonaModule)
   },
   {
+    path: 'items',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/items/items.module').then(m => m.ItemsModule)
+  },
+  {
     path: 'typography',
     pathMatch: 'full',
     canActivate: [AuthGuard],

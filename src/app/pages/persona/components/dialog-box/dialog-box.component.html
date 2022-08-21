@@ -17,18 +17,12 @@
     <input placeholder="{{action}} Clave" type="password" matInput [(ngModel)]="local_data.clave">
   </mat-form-field>
   <mat-form-field *ngIf="action != 'Delete'; else elseTemplate" class="example-full-width" appearance="fill">
-    <input placeholder="{{action}} Rol"  matInput [(ngModel)]="local_data.rol">
-    <input type="text"
-           placeholder="Pick one"
-           aria-label="Number"
-           matInput
-           [formControl]="myControl"
-           [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
+    <mat-label>Role</mat-label>
+    <mat-select [(ngModel)]="selectedValue" name="role">
+      <mat-option *ngFor="let role of roles" [value]="role.value">
+        {{role.viewValue}}
       </mat-option>
-    </mat-autocomplete>
+    </mat-select>
   </mat-form-field>
   <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
     <input placeholder="{{action}} Estado" matInput [(ngModel)]="local_data.estado">

@@ -24,8 +24,9 @@ export class SignFormComponent implements OnInit {
   }
 
   public sign(): void {
-    //console.log(this.form);
+    console.log(this.form);
     if (this.form.valid) {
+      console.log("valid");
       this.sendSignForm.emit();
     }
   }
